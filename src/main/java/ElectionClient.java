@@ -10,6 +10,16 @@ public class ElectionClient {
     static Map<String, String> voters = new HashMap<String, String>();
     static Scanner in = new Scanner(System.in);
 
+    private static void printMainMenu(){
+        System.out.println("Bem vindo ao ElectionServer");
+        System.out.println("1 - Server");
+        System.out.println("2 - Candidatos");
+        System.out.println("3 - Votacao");
+        System.out.println("4 - Numero de candidatos");
+        System.out.println("5 - Resultado");
+        System.out.println("6 - Sair");
+    }
+
     private static void vote(String name, String id) {
         for (int i = 0; i <= 5; i++){    // executa retry 5 vezes em caso de falha
             try {
@@ -64,7 +74,7 @@ public class ElectionClient {
         String rmi_server = "rmi://localhost:8080/";
         String server_name = "ElectionService";
         Scanner in = new Scanner(System.in);
-        Menu menu = new Menu();
+
 
         try {
             remote_election = (Election) Naming.lookup(rmi_server + server_name);
@@ -73,7 +83,7 @@ public class ElectionClient {
 
             Integer option = -1;
             while (option != 6) {
-                menu.printMainMenu();
+                printMainMenu();
                 System.out.println("Digite sua opcao: ");
                 switch (option = in.nextInt()) {
                     case 1:
@@ -83,7 +93,7 @@ public class ElectionClient {
                         printCandidates();
                         break;
                     case 3:
-                        break;
+                        vote();
                     case 4:
                         break;
                     case 5:
