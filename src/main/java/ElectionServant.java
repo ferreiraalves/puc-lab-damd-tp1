@@ -39,8 +39,13 @@ public class ElectionServant extends java.rmi.server.UnicastRemoteObject impleme
     }
 
     @Override
-    public Integer result(String name) throws RemoteException {
-        return null;
+    public Result result(String name) throws RemoteException {
+        if (!candidates.containsKey(name)){
+            System.err.println("Missing candidate");
+            return null;
+        }else{
+            return new Result(name, candidates.get(name));
+        }
     }
 
 
