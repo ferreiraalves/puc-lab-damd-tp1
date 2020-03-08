@@ -59,11 +59,34 @@ public class ElectionClient {
     private static void vote() {
         System.out.println("Digite seu nome: ");
         String voterName = in.nextLine();
+        System.out.println();
         if (voters.containsKey(voterName)) {
-            System.out.println("Welcome back " + voterName);
+            System.out.println("Bem vindo de volta " + voterName);
         } else {
             voters.put(voterName,UUID.randomUUID().toString());
-            System.out.println("Welcome " + voterName + " your UUID is " + voters.get(voterName));
+            System.out.println("Bem vindo " + voterName + " o seu UUID e " + voters.get(voterName));
+        }
+        System.out.println();
+        System.out.println("Candidatos disponiveis:");
+        System.out.println();
+        printCandidates();
+        System.out.println();
+        System.out.println("Escolha seu candidato:");
+        String candidateName = in.nextLine();
+        vote(candidateName, voters.get(voterName));
+
+    }
+
+    private static void results() {
+        ;
+        try {
+            ArrayList <String> candidates = remote_election.candidates();
+            for (String candidate : candidates) {
+                Result result = result(candidate);
+                System.out.println(result.getCandidateName() + "\t-\t" + result.getCandidateVotes());
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
 
     }
@@ -94,9 +117,12 @@ public class ElectionClient {
                         break;
                     case 3:
                         vote();
+                        break;
                     case 4:
+                        System.out.println(candidates().size() + " candidatos encontrados");
                         break;
                     case 5:
+                        results();
                         break;
                     default:
                         break;

@@ -14,7 +14,7 @@ public class ElectionServant extends java.rmi.server.UnicastRemoteObject impleme
         super();
         candidates.put("JOAO DAS COXINHAS", 0);
         candidates.put("DORIVAL DA 51", 0);
-        candidates.put("HUGO DAS COMPUTARIAS", 0);
+        candidates.put("HUGO DOS PROTOCOLOS", 0);
     }
 
     @Override
@@ -28,14 +28,15 @@ public class ElectionServant extends java.rmi.server.UnicastRemoteObject impleme
 
     @Override
     public void vote(String name, String id) throws RemoteException {
-        if (voters.containsKey(name)){
-            System.err.println("Duplicate voter");            // Garante que o voto não seja contabilizado duas vezes
+        if (voters.containsKey(id)){
+            System.err.println("Duplicate voter");            // Garante que o mesmo eleitor nao seja contabilizado duas vezes
         }else if (!candidates.containsKey(name)){
             System.err.println("Missing candidate");
         }else{
+            System.out.println(name + id);
             candidates.put(name, candidates.get(name) + 1);
         }
-        voters.put(name,true);      // Garante que o voto não seja contabilizado duas vezes
+        voters.put(id,true);      // Garante que o mesmo eleitor nao seja contabilizado duas vezes
     }
 
     @Override
