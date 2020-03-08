@@ -29,13 +29,13 @@ public class ElectionServant extends java.rmi.server.UnicastRemoteObject impleme
     @Override
     public void vote(String name, String id) throws RemoteException {
         if (voters.containsKey(name)){
-            System.err.println("Duplicate voter");
+            System.err.println("Duplicate voter");            // Garante que o voto não seja contabilizado duas vezes
         }else if (!candidates.containsKey(name)){
             System.err.println("Missing candidate");
         }else{
             candidates.put(name, candidates.get(name) + 1);
         }
-        voters.put(name,true);
+        voters.put(name,true);      // Garante que o voto não seja contabilizado duas vezes
     }
 
     @Override
