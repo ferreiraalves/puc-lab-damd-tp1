@@ -5,10 +5,10 @@ import java.util.Map;
 
 public class ElectionServant extends java.rmi.server.UnicastRemoteObject implements Election{
 
+    private static final long serialVersionUID = 1L;
+
     private Map<String, Integer> candidates = new HashMap<String, Integer>();
     private Map<String, Boolean> voters = new HashMap<String, Boolean>();
-
-
 
     public ElectionServant() throws java.rmi.RemoteException {
         super();
